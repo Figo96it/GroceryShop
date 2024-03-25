@@ -1,10 +1,13 @@
 package com.example.GroceryShop.domain.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     private Long id;
     private String name;
+    private  String userName;
     private String surname;
     private LocalDate dateOfRegistration;
     private LocalDate dateOfBorn;
@@ -15,10 +18,13 @@ public class User {
 
     }
 
-    public User(Long id, String name, String surname, LocalDate dateOfRegistration, LocalDate dateOfBorn) {
+
+
+    public User(Long id, String name, String userName, LocalDate dateOfRegistration, LocalDate dateOfBorn, String email) {
+
         this.id = id;
         this.name = name;
-        this.surname = surname;
+        this.userName = userName;
         this.dateOfRegistration = dateOfRegistration;
         this.dateOfBorn = dateOfBorn;
         this.email = email;
@@ -82,4 +88,7 @@ public class User {
                 ", dateOfBorn=" + dateOfBorn +
                 '}';
     }
+
+
+
 }

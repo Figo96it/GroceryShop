@@ -1,21 +1,15 @@
 package com.example.GroceryShop.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
+@Table(name="products")
 public class Product {
 
     @Id
@@ -23,14 +17,13 @@ public class Product {
     private Long id;
     private String productName;
     private String productDescription;
-    private List<Review> prouctReviews;
+    private List<Review> productReviews;
     private float basePrice;
     private float percentOfTaxes;
     private LocalDate dateOfAddition;
     private LocalDate dateOfExpiry;
     private int interestedInCounter;
     private boolean isAvaiable;
-
 
     public Product(String productName, String productDescription, float basePrice, float percentOfTaxes){
         this.productName = productName;
@@ -39,4 +32,7 @@ public class Product {
         this.percentOfTaxes = percentOfTaxes;
     }
 
+    public void setBasePrice(float basePrice) {
+        this.basePrice = basePrice;
+    }
 }

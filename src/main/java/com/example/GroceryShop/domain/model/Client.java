@@ -1,10 +1,12 @@
 package com.example.GroceryShop.domain.model;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
+@NoArgsConstructor
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,15 +17,6 @@ public class Client {
     private LocalDate dateOfRegistration;
     private LocalDate dateOfBorn;
     private String email;
-
-    public Client(Long id, String name, String clientName, LocalDate dateOfRegistration, LocalDate dateOfBorn, String email) {
-        this.id = id;
-        this.name = name;
-        this.clientName = clientName;
-        this.dateOfRegistration = dateOfRegistration;
-        this.dateOfBorn = dateOfBorn;
-        this.email = email;
-    }
 
     public Client(String name, String clientName, LocalDate dateOfRegistration, LocalDate dateOfBorn, String email) {
         this.name = name;

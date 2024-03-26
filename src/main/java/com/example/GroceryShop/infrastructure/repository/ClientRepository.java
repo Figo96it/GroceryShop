@@ -12,4 +12,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     //Create special queries
     List<Client> findByAgeGreaterThan(int age);
+
+    Client findByUsername(String userName);
 }

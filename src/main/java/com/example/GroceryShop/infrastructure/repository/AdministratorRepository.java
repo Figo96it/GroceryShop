@@ -11,6 +11,4 @@ public interface AdministratorRepository extends JpaRepository<Administrator, Lo
 
     Optional<Administrator> findById(Long id);
 
-    Optional<Administrator> findUserByUsername(String username);
-
 }

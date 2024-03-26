@@ -1,35 +1,37 @@
 package com.example.GroceryShop.domain.model;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.*;
 
-public class User {
+import java.time.LocalDate;
+
+@Entity
+public class Client {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private  String userName;
-    private String surname;
+    private  String clientName;
+    private String surName;
     private LocalDate dateOfRegistration;
     private LocalDate dateOfBorn;
     private String email;
 
-
-    public User() {
-
-    }
-
-
-
-    public User(Long id, String name, String userName, LocalDate dateOfRegistration, LocalDate dateOfBorn, String email) {
-
+    public Client(Long id, String name, String clientName, LocalDate dateOfRegistration, LocalDate dateOfBorn, String email) {
         this.id = id;
         this.name = name;
-        this.userName = userName;
+        this.clientName = clientName;
         this.dateOfRegistration = dateOfRegistration;
         this.dateOfBorn = dateOfBorn;
         this.email = email;
     }
 
+    public Client(String name, String clientName, LocalDate dateOfRegistration, LocalDate dateOfBorn, String email) {
+        this.name = name;
+        this.clientName = clientName;
+        this.dateOfRegistration = dateOfRegistration;
+        this.dateOfBorn = dateOfBorn;
+        this.email = email;
+    }
     public Long getId() {
         return id;
     }
@@ -46,12 +48,12 @@ public class User {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getSurName() {
+        return surName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setSurName(String surName) {
+        this.surName = surName;
     }
 
     public LocalDate getDateOfRegistration() {
@@ -80,10 +82,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Client{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                ", surname='" + surName + '\'' +
                 ", dateOfRegistration=" + dateOfRegistration +
                 ", dateOfBorn=" + dateOfBorn +
                 '}';

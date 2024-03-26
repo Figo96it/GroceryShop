@@ -1,4 +1,4 @@
 package com.example.GroceryShop.application.mapper;
 
-public class UserMapper {
+public class ClientMapper {
 }

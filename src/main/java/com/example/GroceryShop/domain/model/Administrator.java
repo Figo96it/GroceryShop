@@ -1,25 +1,32 @@
 package com.example.GroceryShop.domain.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Administrator {
 
-
-    private int id;
-    private String username;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String userName;
     private String firstName;
     private String lastName;
     private String email;
 
     public Administrator(String username, String email) {
-        this.username = username;
+        this.userName = username;
         this.email = email;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
     public String getFirstName() {
@@ -38,7 +45,7 @@ public class Administrator {
     public String toString() {
         return "Administrator{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", username='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

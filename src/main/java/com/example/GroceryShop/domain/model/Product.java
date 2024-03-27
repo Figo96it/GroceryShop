@@ -1,21 +1,14 @@
 package com.example.GroceryShop.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
+@RequiredArgsConstructor
 public class Product {
 
     @Id
@@ -23,7 +16,8 @@ public class Product {
     private Long id;
     private String productName;
     private String productDescription;
-    private List<Review> prouctReviews;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Review> productReviews;
     private float basePrice;
     private float percentOfTaxes;
     private LocalDate dateOfAddition;

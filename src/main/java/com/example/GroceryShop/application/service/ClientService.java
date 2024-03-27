@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface ClientService {
 
+    Client register(Client client);
+
+    Client findByUsername(String username);
+
     Client createClient(String name, String userName, LocalDate dateOfRegistration, LocalDate dateOfBorn, String email);
 
     Client getClientById(Long id);

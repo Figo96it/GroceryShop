@@ -11,7 +11,5 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
     //Create special queries
-    List<Client> findByAgeGreaterThan(int age);
-
-    Client findByUsername(String userName);
+    Client findByUsername(String username);
 }

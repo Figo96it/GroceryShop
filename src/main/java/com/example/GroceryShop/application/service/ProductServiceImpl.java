@@ -1,18 +1,14 @@
 package com.example.GroceryShop.application.service;
 
-import com.example.GroceryShop.domain.model.Client;
 import com.example.GroceryShop.domain.model.Product;
 import com.example.GroceryShop.infrastructure.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
-
+@Service
 public class ProductServiceImpl implements ProductService {
-
     private final ProductRepository productRepository;
-
-    private List<Client> clientList;
 
     @Autowired
     public ProductServiceImpl(ProductRepository productRepository) {
@@ -25,12 +21,37 @@ public class ProductServiceImpl implements ProductService {
         Product product = new Product(productName, productDescription, basePrice, percentOfTaxe);
         //Save to dataBase
         return productRepository.save(product);
-
     }
-
     @Override
     public Product getProductById(Long id) {
-        //Find user by id from repository
+        //Find product by id from repository
         return productRepository.findById(id).orElse(null);
     }
+    @Override
+    public void deleteProduct(Long id){
+        //Delete product by id from repository
+        productRepository.deleteById(id);
+    }
+    @Override
+    public  List<Product> listProducts(){
+        return productRepository.findAll();
+    }
+    public void changeProductPrice(Long id, float newBasePrice){
+        Product product = productRepository.findById(id).orElse(null);
+        product.setBasePrice(newBasePrice);//  ??? jak uzyc automatycznego gettera, który jest tagowany?
+        productRepository.save(product);
+        productRepository.findProductByProductName("S");
+    }
+
+//    public void changeProductTax(Long id, float newTax){
+//        Product product = productRepository.findById(id).orElse(null);
+//        product.setBasePrice(newBasePrice) ;//  ??? jak uzyc automatycznego gettera, który jest tagowany?
+//        productRepository.save(product);
+//      }
+//    public void changeProductDescription(Long id, String newProductDescription){
+//        Product product = productRepository.findById(id).orElse(null);
+//        product.setBasePrice(newBasePrice) ;//  ??? jak uzyc automatycznego gettera, który jest tagowany?
+//        productRepository.save(product);
+//    }
+
 }

@@ -1,9 +1,6 @@
 package com.example.GroceryShop.application.service;
 
 import com.example.GroceryShop.domain.model.Product;
-import com.example.GroceryShop.domain.model.Product;
-
-import java.time.LocalDate;
 import java.util.List;
 
 public interface ProductService {

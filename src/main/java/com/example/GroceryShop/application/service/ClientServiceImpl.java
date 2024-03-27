@@ -4,15 +4,11 @@ import com.example.GroceryShop.domain.model.Client;
 import com.example.GroceryShop.domain.model.Role;
 import com.example.GroceryShop.infrastructure.repository.ClientRepository;
 import com.example.GroceryShop.infrastructure.repository.RoleRepository;
-import jakarta.persistence.Id;
+import java.time.LocalDate;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.events.Event;
-
-import java.time.LocalDate;
-import java.util.List;
-
 
 @Service
 public class ClientServiceImpl implements ClientService {

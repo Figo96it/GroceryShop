@@ -2,10 +2,10 @@ package com.example.GroceryShop.application.service;
 
 import com.example.GroceryShop.domain.model.Product;
 import com.example.GroceryShop.infrastructure.repository.ProductRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;

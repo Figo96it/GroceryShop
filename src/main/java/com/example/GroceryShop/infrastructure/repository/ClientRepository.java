@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
-    //Create special queries
-    Client findByUsername(String username);
-
+  // Create special queries
+  Client findByUsername(String username);
 }

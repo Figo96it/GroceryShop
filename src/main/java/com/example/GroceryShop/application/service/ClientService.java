@@ -7,15 +7,20 @@ import java.util.List;
 
 public interface ClientService {
 
-    Client register(Client client);
+  Client register(Client client);
 
-    Client findByUsername(String username);
+  Client findByUsername(String username);
 
-    Client createClient(String name, String userName, LocalDate dateOfRegistration, LocalDate dateOfBorn, String email);
+  Client createClient(
+      String name,
+      String userName,
+      LocalDate dateOfRegistration,
+      LocalDate dateOfBorn,
+      String email);
 
-    Client getClientById(Long id);
+  Client getClientById(Long id);
 
-    void deleteClient(Long id);
+  void deleteClient(Long id);
 
-    List<Client> listClients();
+  List<Client> listClients();
 }

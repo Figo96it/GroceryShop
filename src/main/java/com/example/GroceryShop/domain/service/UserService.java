@@ -1,4 +1,3 @@
 package com.example.GroceryShop.domain.service;
 
-public class UserService {
-}
+public class UserService {}

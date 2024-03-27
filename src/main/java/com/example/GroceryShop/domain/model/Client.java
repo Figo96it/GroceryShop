@@ -47,4 +47,10 @@ public class Client {
     this.dateOfBorn = dateOfBorn;
     this.email = email;
   }
+
+  public Client(String username, String email, String password) {
+    this.username = username;
+    this.email = email;
+    this.password = password;
+  }
 }

@@ -1,50 +1,63 @@
 package com.example.GroceryShop.infrastructure.security;
 
+import com.example.GroceryShop.infrastructure.service.ClientDetailsServiceImpl;
+import java.util.Collections;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig{
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/","/home").permitAll()
-                        .anyRequest().authenticated()
-                ).formLogin(login -> login
-                        .loginPage("/login") // Określ adres URL formularza logowania
-                        .permitAll() // Pozwól na dostęp do formularza logowania dla wszystkich użytkowników
-                        .defaultSuccessUrl("/home", true) // Określ stronę po pomyślnym zalogowaniu
-                        .failureUrl("/login?error=true"))
-                .logout(LogoutConfigurer::permitAll
-        );
+public class SecurityConfig {
 
-        return http.build();
-    }
+  @Autowired
+  private ClientDetailsServiceImpl clientDetailsServiceImpl;
 
-    @Bean
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
-                .roles("USER")
-                .build();
+  @Bean
+  public BCryptPasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-        UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("password")
-                .roles("ADMIN")
-                .build();
+  @Bean
+  public AuthenticationManager authenticationManager() throws Exception {
+    return new ProviderManager(Collections.singletonList(daoAuthenticationProvider()));
+  }
 
-        return new InMemoryUserDetailsManager(user, admin);
-    }
+  @Bean
+  public DaoAuthenticationProvider daoAuthenticationProvider() {
+    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+    provider.setUserDetailsService(clientDetailsServiceImpl);
+    provider.setPasswordEncoder(passwordEncoder());
+    return provider;
+  }
 
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http.authorizeHttpRequests(
+            authorize ->
+                authorize
+                    .requestMatchers("/register", "/css/**", "/js/**")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
+        .formLogin(
+            login ->
+                login
+                    .loginPage("/login")
+                    .permitAll()
+                    .defaultSuccessUrl("/home", true)
+                    .failureUrl("/login?error=true"))
+        .logout(LogoutConfigurer::permitAll);
+
+    return http.build();
+  }
 }

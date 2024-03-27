@@ -1,13 +1,10 @@
 package com.example.GroceryShop.application.service;
 
 import com.example.GroceryShop.domain.model.Client;
-
 import java.time.LocalDate;
 import java.util.List;
 
 public interface ClientService {
-
-  Client register(Client client);
 
   Client findByUsername(String username);
 

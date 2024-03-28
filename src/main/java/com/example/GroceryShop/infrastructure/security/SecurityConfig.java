@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -42,22 +43,19 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests(
-            authorize ->
-                authorize
-                    .requestMatchers("/register", "/css/**", "/js/**")
+    http.authorizeHttpRequests((authorize) -> authorize
+                    .requestMatchers("/home")
                     .permitAll()
                     .anyRequest()
                     .authenticated())
-        .formLogin(
-            login ->
-                login
+            .formLogin(login -> login
                     .loginPage("/login")
                     .permitAll()
                     .defaultSuccessUrl("/home", true)
                     .failureUrl("/login?error=true"))
-        .logout(LogoutConfigurer::permitAll);
+            .logout(LogoutConfigurer::permitAll);
 
     return http.build();
   }
+
 }

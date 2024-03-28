@@ -20,4 +20,6 @@ public interface ClientService {
   void deleteClient(Long id);
 
   List<Client> listClients();
+
+  void createClient(Client testClient);
 }

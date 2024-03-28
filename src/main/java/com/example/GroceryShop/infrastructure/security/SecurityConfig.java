@@ -1,61 +1,60 @@
 package com.example.GroceryShop.infrastructure.security;
 
-import com.example.GroceryShop.infrastructure.service.ClientDetailsServiceImpl;
-import java.util.Collections;
+import static org.springframework.security.config.Customizer.withDefaults;
 
+import com.example.GroceryShop.application.service.ClientService;
+import com.example.GroceryShop.infrastructure.service.ClientDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-  @Autowired
-  private ClientDetailsServiceImpl clientDetailsServiceImpl;
+  @Autowired private ClientService clientService;
 
   @Bean
-  public BCryptPasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    // @formatter:off
+    http.authorizeHttpRequests(
+            (authorize) ->
+                authorize
+                    .requestMatchers(new AntPathRequestMatcher("/**"))
+                    .authenticated()
+                    .anyRequest()
+                    .permitAll())
+        .formLogin(withDefaults())
+        .httpBasic(withDefaults());
+
+    // @formatter:on
+    return http.build();
   }
 
   @Bean
-  public AuthenticationManager authenticationManager() throws Exception {
-    return new ProviderManager(Collections.singletonList(daoAuthenticationProvider()));
-  }
-
-  @Bean
-  public DaoAuthenticationProvider daoAuthenticationProvider() {
+  public AuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-    provider.setUserDetailsService(clientDetailsServiceImpl);
+    provider.setUserDetailsService(userDetailsService());
     provider.setPasswordEncoder(passwordEncoder());
     return provider;
   }
 
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests((authorize) -> authorize
-                    .requestMatchers("/home")
-                    .permitAll()
-                    .anyRequest()
-                    .authenticated())
-            .formLogin(login -> login
-                    .loginPage("/login")
-                    .permitAll()
-                    .defaultSuccessUrl("/home", true)
-                    .failureUrl("/login?error=true"))
-            .logout(LogoutConfigurer::permitAll);
-
-    return http.build();
+  public UserDetailsService userDetailsService() {
+    return new ClientDetailsServiceImpl(clientService);
   }
 
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 }

@@ -22,7 +22,7 @@ public class Client {
   private String username;
   private String password;
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
       name = "client_roles",
       joinColumns = @JoinColumn(name = "client_id"),

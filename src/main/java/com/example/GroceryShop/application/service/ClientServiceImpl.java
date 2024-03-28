@@ -4,9 +4,12 @@ import com.example.GroceryShop.domain.model.Client;
 import com.example.GroceryShop.infrastructure.repository.ClientRepository;
 import java.time.LocalDate;
 import java.util.List;
+
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class ClientServiceImpl implements ClientService {
 
   private final ClientRepository clientRepository;
@@ -49,5 +52,10 @@ public class ClientServiceImpl implements ClientService {
   @Override
   public List<Client> listClients() {
     return clientRepository.findAll();
+  }
+
+  @Override
+  public void createClient(Client testClient) {
+    clientRepository.save(testClient);
   }
 }

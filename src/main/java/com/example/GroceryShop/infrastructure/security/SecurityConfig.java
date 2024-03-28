@@ -1,7 +1,5 @@
 package com.example.GroceryShop.infrastructure.security;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 import com.example.GroceryShop.application.service.ClientService;
 import com.example.GroceryShop.infrastructure.service.ClientDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +9,16 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @EnableWebSecurity
@@ -25,18 +28,15 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    // @formatter:off
-    http.authorizeHttpRequests(
+    http.formLogin(form -> form.loginPage("/login").permitAll().defaultSuccessUrl("/home"))
+        .authorizeHttpRequests(
             (authorize) ->
                 authorize
                     .requestMatchers(new AntPathRequestMatcher("/**"))
-                    .authenticated()
+                    .permitAll()
                     .anyRequest()
-                    .permitAll())
-        .formLogin(withDefaults())
-        .httpBasic(withDefaults());
+                    .authenticated());
 
-    // @formatter:on
     return http.build();
   }
 
@@ -50,8 +50,19 @@ public class SecurityConfig {
 
   @Bean
   public UserDetailsService userDetailsService() {
-    return new ClientDetailsServiceImpl(clientService);
+    UserDetails user = User.builder()
+            .username("user")
+            .password("password")
+            .roles("USER")
+            .build();
+
+    return new InMemoryUserDetailsManager(user);
   }
+
+//  @Bean
+//  public UserDetailsService userDetailsService() {
+//    return new ClientDetailsServiceImpl(clientService);
+//  }
 
   @Bean
   public PasswordEncoder passwordEncoder() {

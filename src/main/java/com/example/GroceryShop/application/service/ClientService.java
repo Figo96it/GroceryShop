@@ -1,17 +1,25 @@
 package com.example.GroceryShop.application.service;
 
 import com.example.GroceryShop.domain.model.Client;
-
 import java.time.LocalDate;
 import java.util.List;
 
 public interface ClientService {
 
-    Client createClient(String name, String userName, LocalDate dateOfRegistration, LocalDate dateOfBorn, String email);
+  Client findByUsername(String username);
 
-    Client getClientById(Long id);
+  Client createClient(
+      String name,
+      String userName,
+      LocalDate dateOfRegistration,
+      LocalDate dateOfBorn,
+      String email);
 
-    void deleteClient(Long id);
+  Client getClientById(Long id);
 
-    List<Client> listClients();
+  void deleteClient(Long id);
+
+  List<Client> listClients();
+
+  void createClient(Client testClient);
 }

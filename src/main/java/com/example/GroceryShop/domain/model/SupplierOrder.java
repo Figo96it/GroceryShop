@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 @Entity
 public class SupplierOrder {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 }

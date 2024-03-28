@@ -16,4 +16,7 @@ public class Product {
   private Long id;
 
   private BigDecimal price;
+
+    public Product(String productName, String productDescription, float basePrice, float percentOfTaxe) {
+    }
 }

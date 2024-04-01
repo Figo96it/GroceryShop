@@ -41,20 +41,23 @@ public class Basket {
     }
 
 
-    public void addProduct(Product product){
+    public void addProduct(Product product) {
         this.active = true;
-      this.productList.add(product);
+        this.productList.add(product);
     }
-    public void removeProduct(Product product){
 
-      this.productList.remove(product);
-      if(productList.size() == 0) this.active = false;
+    public void removeProduct(Product product) {
+
+        this.productList.remove(product);
+        if (productList.size() == 0) this.active = false;
     }
-    public  void  clearBasket(){
+
+    public void clearBasket() {
         this.active = false;
         this.productList.clear();
     }
-    public List<Product> listProductFromBasket(){
-      return   this.productList;
+
+    public List<Product> listProductFromBasket() {
+        return this.productList;
     }
 }

@@ -25,13 +25,13 @@ public class Order {
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
-    private List<Product> products;
+  //  private List<Product> products;
     @OneToMany
     @JoinColumn(name = "client_id")
     private Client client;
     private LocalDate orderDate;
     private String shippingAddress;
-    private Double totalAmount;
+    private Double totalAmountOrder;
 
 
     public Basket getBasket() {

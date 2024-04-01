@@ -40,9 +40,7 @@ public class BasketServiceImpl implements BasketService {
     @Override
     public List<Product> getProducts(Basket basket) {
         return basket.listProductFromBasket();
-
     }
-
     @Override
     public BigDecimal calculateTotalAmount(Basket basket) {
 

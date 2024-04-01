@@ -15,5 +15,13 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String nameProduct;
     private BigDecimal price;
+    private ProductCategoryEnum productCategoryEnum;
+
+    public Product(String nameProduct, BigDecimal price, ProductCategoryEnum productCategoryEnum) {
+        this.nameProduct = nameProduct;
+        this.price = price;
+        this.productCategoryEnum = productCategoryEnum;
+    }
 }

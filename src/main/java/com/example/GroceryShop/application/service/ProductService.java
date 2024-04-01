@@ -4,8 +4,7 @@ import com.example.GroceryShop.domain.model.Product;
 import java.util.List;
 
 public interface ProductService {
-  Product addProduct(
-      String productName, String productDescription, float basePrice, float percentOfTaxe);
+  Product addProduct(String productName, String productDescription, float basePrice, float percentOfTaxe);
 
   Product getProductById(Long id);
 

@@ -1,18 +1,21 @@
 package com.example.GroceryShop.application.service;
 
+import com.example.GroceryShop.domain.model.Basket;
+import com.example.GroceryShop.domain.model.Client;
 import com.example.GroceryShop.domain.model.Order;
 import com.example.GroceryShop.domain.model.Product;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface OrderService {
-    List<Order> addProduct(Product product);
 
-    void removeProduct(Long id);
+    Order createOrderFromBasket(Client client, Basket basket);
 
-    List<Order> getProducts();
+    void removeOrder(Long id);
 
-    Double calculateTotalAmount();
+    List<Order> listOrder();
 
+    BigDecimal calculateTotalAmountFromBasket(Order order);
 
 }

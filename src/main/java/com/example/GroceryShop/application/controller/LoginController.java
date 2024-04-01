@@ -12,8 +12,7 @@ public class LoginController {
   }
 
   @PostMapping("/login")
-  public String showHomePage(){
+  public String showHomePage() {
     return "home";
   }
-
 }

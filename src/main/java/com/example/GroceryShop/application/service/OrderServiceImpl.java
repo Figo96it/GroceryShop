@@ -11,17 +11,25 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 
+<<<<<<< HEAD
 import static org.springframework.boot.web.server.Ssl.ClientAuth.map;
 
+=======
+>>>>>>> 736841352b8597d2cd75faf7db89101609783b87
 @Service
 public class OrderServiceImpl implements OrderService {
-    private final OrderRepository orderRepository;
+  private final OrderRepository orderRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
+  public OrderServiceImpl(OrderRepository orderRepository) {
+    this.orderRepository = orderRepository;
+  }
 
+  @Override
+  public List<Order> addProduct(Product product) {
+    return null;
+  }
 
+<<<<<<< HEAD
     @Override
     public Order createOrderFromBasket(Client client, Basket basket) {
         Order order = new Order();
@@ -49,4 +57,20 @@ public class OrderServiceImpl implements OrderService {
         }
         return totalAmount;
     }
+=======
+  @Override
+  public void removeProduct(Long id) {
+    orderRepository.deleteById(id);
+  }
+
+  @Override
+  public List<Order> getProducts() {
+    return orderRepository.findAll();
+  }
+
+  @Override
+  public Double calculateTotalAmount() {
+    return null;
+  }
+>>>>>>> 736841352b8597d2cd75faf7db89101609783b87
 }

@@ -43,9 +43,9 @@ public class ProductServiceImpl implements ProductService {
 
   public void changeProductPrice(Long id, float newBasePrice) {
     Product product = productRepository.findById(id).orElse(null);
-    product.setBasePrice(
-        newBasePrice); //  ??? jak uzyc automatycznego gettera, który jest tagowany?
-    productRepository.save(product);
+//    product.setBasePrice(
+//        newBasePrice); //  ??? jak uzyc automatycznego gettera, który jest tagowany?
+//    productRepository.save(product);
     // productRepository.findProductByProductName("S");
   }
 

@@ -4,9 +4,6 @@ import com.example.GroceryShop.application.service.ClientService;
 import com.example.GroceryShop.domain.model.Client;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.hibernate.Hibernate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

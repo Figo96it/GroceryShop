@@ -2,10 +2,9 @@ package com.example.GroceryShop.application.service;
 
 import com.example.GroceryShop.domain.model.Client;
 import com.example.GroceryShop.infrastructure.repository.ClientRepository;
+import jakarta.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
-
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service

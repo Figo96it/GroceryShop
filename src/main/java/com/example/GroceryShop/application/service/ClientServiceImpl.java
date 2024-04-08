@@ -37,7 +37,6 @@ public class ClientServiceImpl implements ClientService {
 
   @Override
   public Client getClientById(Long id) {
-
     // Find user by id from repository
     return clientRepository.findById(id).orElse(null);
   }

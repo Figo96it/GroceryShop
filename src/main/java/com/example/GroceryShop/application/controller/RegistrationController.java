@@ -39,24 +39,24 @@ public class RegistrationController {
   @PostMapping("/register")
   public String registerClient(@ModelAttribute("client") Client client) {
     System.out.println(client);
-    Client save = clientRepository.save(client);
-    // Tworzenie roli USER
 
+    // Tworzenie roli USER
     Role userRole = roleRepository.findByName("USER");
     if (userRole == null) {
       userRole = new Role("USER");
-      userRole = roleRepository.save(userRole);
+      roleRepository.save(userRole);
     }
 
     // Dodawanie roli do klienta
-    save.getRoles().add(userRole);
-    clientRepository.save(save);
+    client.getRoles().add(userRole);
+
     // Zapisywanie klienta
+    clientRepository.save(client);
 
     // Tworzenie ClientRole i zapisywanie
     ClientRole clientRole = new ClientRole();
     clientRole.setRole(userRole);
-    clientRole.setClient(save);
+    clientRole.setClient(client);
     clientRoleRepository.save(clientRole);
 
     System.out.println(clientRepository.findByUserName("figo96"));

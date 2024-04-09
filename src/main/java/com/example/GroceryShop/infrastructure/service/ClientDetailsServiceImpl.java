@@ -22,8 +22,8 @@ public class ClientDetailsServiceImpl implements UserDetailsService {
   }
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    Client client = clientService.findByUsername(username);
+  public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+    Client client = clientService.findByUserName(userName);
     if (client == null) {
       throw new UsernameNotFoundException("User not found");
     }
@@ -34,6 +34,6 @@ public class ClientDetailsServiceImpl implements UserDetailsService {
     Set<GrantedAuthority> authorities = new HashSet<>();
     client.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
 
-    return new User(client.getUsername(), client.getPassword(), authorities);
+    return new User(client.getUserName(), client.getPassword(), authorities);
   }
 }

@@ -4,8 +4,6 @@ import com.example.GroceryShop.domain.model.Price;
 import com.example.GroceryShop.domain.model.Product;
 import com.example.GroceryShop.domain.model.ProductCategory;
 import com.example.GroceryShop.domain.model.ProductGroup;
-
-import java.math.BigDecimal;
 import java.util.List;
 
 public interface ProductService {

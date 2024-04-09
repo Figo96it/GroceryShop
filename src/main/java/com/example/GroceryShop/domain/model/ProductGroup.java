@@ -18,5 +18,4 @@ public class ProductGroup {
 
   private String name;
   private String description;
-
 }

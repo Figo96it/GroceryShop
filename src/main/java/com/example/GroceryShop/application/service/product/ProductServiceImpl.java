@@ -5,10 +5,8 @@ import com.example.GroceryShop.domain.model.Product;
 import com.example.GroceryShop.domain.model.ProductCategory;
 import com.example.GroceryShop.domain.model.ProductGroup;
 import com.example.GroceryShop.infrastructure.repository.ProductRepository;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,7 +31,9 @@ public class ProductServiceImpl implements ProductService {
       float percentOfTaxe,
       ProductCategory productCategory,
       ProductGroup productGroup) {
-    Product product = new Product(productName, productDescription, prices, percentOfTaxe, productCategory, productGroup);
+    Product product =
+        new Product(
+            productName, productDescription, prices, percentOfTaxe, productCategory, productGroup);
     return productRepository.save(product);
   }
 

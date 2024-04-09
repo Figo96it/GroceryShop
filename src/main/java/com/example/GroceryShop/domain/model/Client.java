@@ -14,15 +14,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "clients")
 public class Client {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(unique = true, nullable = false)
   private Long id;
 
-  private String name;
-  private String username;
+  private String firstName;
+  private String userName;
   private String password;
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
   @JoinTable(
       name = "client_roles",
       joinColumns = @JoinColumn(name = "client_id"),
@@ -30,27 +32,35 @@ public class Client {
   private Set<Role> roles = new HashSet<>();
 
   private boolean enabled;
-  private String surName;
+  private String lastName;
   private LocalDate dateOfRegistration;
   private LocalDate dateOfBorn;
   private String email;
 
   public Client(
-      String name,
-      String username,
+      String firstName,
+      String userName,
       LocalDate dateOfRegistration,
       LocalDate dateOfBorn,
       String email) {
-    this.name = name;
-    this.username = username;
+    this.firstName = firstName;
+    this.userName = userName;
     this.dateOfRegistration = dateOfRegistration;
     this.dateOfBorn = dateOfBorn;
     this.email = email;
   }
 
-  public Client(String username, String email, String password) {
-    this.username = username;
+  public Client(String userName, String email, String password) {
+    this.userName = userName;
     this.email = email;
     this.password = password;
+  }
+
+  public Client(String firstName, String userName, String password, String lastName, String email) {
+    this.firstName = firstName;
+    this.userName = userName;
+    this.password = password;
+    this.lastName = lastName;
+    this.email = email;
   }
 }
